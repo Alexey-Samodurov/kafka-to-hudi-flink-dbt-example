@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: kafka_source
+    tables:
+    
+      - name: first_topic
+        config:
+          type: streaming
+          connector_properties:
+            connector: 'kafka'
+            properties.bootstrap.servers: 'kafka:9092'
+            topic: 'first-topic'
+            value.format: 'json'
+            scan.startup.mode: 'latest-offset'
+          watermark:
+            column: event_timestamp
+            strategy: event_timestamp
+        columns:
+          - name: id
+            data_type: BIGINT
+          - name: event_timestamp
+            data_type: TIMESTAMP(3)
+
+      - name: second_topic
+        config:
+          type: streaming
+          connector_properties:
+            connector: 'kafka'
+            properties.bootstrap.servers: 'kafka:9092'
+            topic: 'second-topic'
+            value.format: 'json'
+            scan.startup.mode: 'latest-offset'
+          watermark:
+            column: event_timestamp
+            strategy: event_timestamp
+        columns:
+          - name: id
+            data_type: BIGINT
+          - name: event_timestamp
+            data_type: TIMESTAMP(3)
