@@ -1,0 +1,11 @@
+kafka:
+  target: dev
+  outputs:
+    dev:
+      database: default_catalog
+      host: sql-gateway
+      port: 8083
+      schema: default_database
+      session_name: default_session
+      threads: 4
+      type: flink
